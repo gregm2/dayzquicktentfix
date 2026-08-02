@@ -1,0 +1,3 @@
+[submodule "DayZEnforceScriptTests"]
+	path = DayZEnforceScriptTests
+	url = https://github.com/gregm2/DayZEnforceScriptTests

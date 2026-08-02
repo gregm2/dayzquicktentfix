@@ -1,0 +1,59 @@
+# This is a basic workflow to help you get started with Actions
+# obviously we have tweaked the base template
+name: Build PBO and Folder
+
+env:
+  MOD_NAME: QuickTentFix
+  
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  #push:
+  #  branches: [ "main" ]
+  #pull_request:
+  #  branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: checkout
+        uses: actions/checkout@v4
+
+      # Runs a single command using the runners shell
+      - name: bulid a pbo
+        run: python3 DayZEnforceScriptTests/utilities/make_pbo_file.py -p $MOD_NAME\\scripts -s $MOD_NAME/scripts/ -n $MOD_NAME.pbo
+
+      # uploads build artifact
+      - name: PBOFile
+        uses: actions/upload-artifact@v6.0.0
+        with:
+            name: $MOD_NAME.pbo
+            path: $MOD_NAME.pbo
+
+      # build mod directory structure
+      - name: build mod directory structure
+        run: |
+           mkdir -p \@$MOD_NAME/Addons
+           cp $MOD_NAME.pbo \@$MOD_NAME/Addons/$MOD_NAME.pbo
+           zip -r $MOD_NAME.zip \@$MOD_NAME
+      
+      # uploads a compressed directory with @ in front to match normal mod structure
+      - name: store mod zip artifact
+        uses: actions/upload-artifact@v6.0.0
+        with:
+            name: $MOD_NAMEMod
+            path: $MOD_NAME.zip
+      
+      #  run: |
+      #    echo Add other actions to build,
+      #    echo test, and deploy your project.
