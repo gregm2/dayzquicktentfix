@@ -31,9 +31,15 @@ jobs:
         with:
             submodules: true
 
+      - name: listcheckout
+        run: ls -la
+        
       # Runs a single command using the runners shell
       - name: bulid a pbo
-        run: python3 DayZEnforceScriptTests/utilities/make_pbo_file.py -p $MOD_NAME\\scripts -s $MOD_NAME/scripts/ -n $MOD_NAME.pbo
+        run: python3 DayZEnforceScriptTests/utilities/make_pbo_file.py -p $MOD_NAME\\Scripts -s $MOD_NAME/scripts/ -n $MOD_NAME.pbo
+
+      - name: listpbofiles
+        run: ls -la
 
       # uploads build artifact
       - name: PBOFile
@@ -49,6 +55,9 @@ jobs:
            cp $MOD_NAME.pbo \@$MOD_NAME/Addons/$MOD_NAME.pbo
            zip -r $MOD_NAME.zip \@$MOD_NAME
       
+      - name: listzip
+        run: ls -la
+        
       # uploads a compressed directory with @ in front to match normal mod structure
       - name: store mod zip artifact
         uses: actions/upload-artifact@v6.0.0
