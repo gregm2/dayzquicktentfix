@@ -45,8 +45,8 @@ jobs:
       - name: PBOFile
         uses: actions/upload-artifact@v6.0.0
         with:
-            name: $MOD_NAME.pbo
-            path: $MOD_NAME.pbo
+            name: ${{env.MOD_NAME}}.pbo
+            path: ${{env.MOD_NAME}}.pbo
 
       # build mod directory structure
       - name: build mod directory structure
@@ -62,8 +62,8 @@ jobs:
       - name: store mod zip artifact
         uses: actions/upload-artifact@v6.0.0
         with:
-            name: $MOD_NAMEMod
-            path: $MOD_NAME.zip
+            name: ${{env.MOD_NAME}}Mod
+            path: ${{env.MOD_NAME}}.zip
       
       #  run: |
       #    echo Add other actions to build,
