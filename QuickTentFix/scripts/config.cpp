@@ -23,7 +23,7 @@ class CfgMods
 			class worldScriptModule
 			{
 				value = "";
-				files[] = { "QuickTentFix/scripts/4_world" };
+				files[] = { "QuickTentFix/Scripts/4_world" };
 			};
 		};
 	};
